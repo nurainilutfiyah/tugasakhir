@@ -141,6 +141,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin-api']], function
      // Proposal
     Route::get('/getproposal', [ProposalController::class, 'getProposal']);
     Route::post('/proposal', [ProposalController::class, 'store']);
+    Route::post('/export', [ProposalController::class, 'export_excel']);
     Route::post('/proposal/{id}', [ProposalController::class, 'update']);
     Route::get('/proposal/{id}', [ProposalController::class, 'showProposal']);
     Route::get('/getbystatus', [ProposalController::class, 'getStatus']);

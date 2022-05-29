@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Exports\ProposalExport;
 use App\Http\Controllers\Controller;
 use App\Models\Laporan;
 use Illuminate\Http\Request;
@@ -31,6 +31,11 @@ class ProposalController extends Controller
 
         
     }
+
+    public function export_excel()
+	{
+		return Proposal::download(new ProposalExport, 'proposal.xlsx');
+	}
 
     public function store(Request $request){
         $data = $request->all();
