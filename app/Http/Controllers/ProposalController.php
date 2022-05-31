@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ProposalExport;
+use App\Exports\ProposalDiterimaExport;
+use App\Exports\ProposalDitolakExport;
 use App\Http\Controllers\Controller;
 use App\Models\Laporan;
 use Illuminate\Http\Request;
@@ -12,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use File;
 use Illuminate\Http\Response;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProposalController extends Controller
 {
@@ -34,7 +37,17 @@ class ProposalController extends Controller
 
     public function export_excel()
 	{
-		return Proposal::download(new ProposalExport, 'proposal.xlsx');
+		return Excel::download(new ProposalExport, 'proposal.xlsx');
+	}
+
+    public function export_proposal_diterima()
+	{
+		return Excel::download(new ProposalDiterimaExport('id_status'),'proposalditerima.xlsx');
+	}
+
+    public function export_proposal_ditolak()
+	{
+		return Excel::download(new ProposalDitolakExport('id_status'),'proposalditolak.xlsx');
 	}
 
     public function store(Request $request){

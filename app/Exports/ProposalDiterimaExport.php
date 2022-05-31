@@ -7,7 +7,7 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class ProposalExport implements FromQuery, WithHeadings
+class ProposalDiterimaExport implements FromQuery, WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -17,6 +17,10 @@ class ProposalExport implements FromQuery, WithHeadings
     //     //
     //     return Proposal::all();
     // }
+    public function __construct(string $keyword)
+    {
+        $this->id_status = $keyword;
+    }
     public function query()
     {
         return Proposal::when(request('search'), function($query) {
@@ -27,12 +31,12 @@ class ProposalExport implements FromQuery, WithHeadings
             "proposals.tanggal",
             "statuses.status as status",
             "users.name as nama_dinas",
-            // "perusahaans.name as nama_perusahaan"
-            // "perusahaans.name as nama_perusahaan",
+            "perusahaans.name as nama_perusahaan",
         )
         ->join("statuses", "proposals.id_status", "=", "statuses.id")
-        ->join("users", "proposals.id_dinas", "=", "users.id");
-        // ->join("perusahaans", "proposals.id_perusahaan", "=", "perusahaans.id");
+        ->join("users", "proposals.id_dinas", "=", "users.id")
+        ->join("perusahaans", "proposals.id_perusahaan", "=", "perusahaans.id")
+        ->where("id_status", "=", 3) ;
     }
 
     public function headings(): array
@@ -43,7 +47,7 @@ class ProposalExport implements FromQuery, WithHeadings
             'tanggal',
             'status',
             'nama_dinas',
-            // 'nama_perusahaan',
+            'nama_perusahaan',
         ];
     }
 }

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\LaporanExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Laporan;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LaporanController extends Controller
 {
@@ -23,6 +25,11 @@ class LaporanController extends Controller
         })->with('get_status')->with('get_user')->with('get_perusahaan')->paginate(5);
         
         }
+
+          public function export_excel()
+	{
+		return Excel::download(new LaporanExport, 'laporan.xlsx');
+	}
 
         public function store(Request $request){
         $data = $request->all();

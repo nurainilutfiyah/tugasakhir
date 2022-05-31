@@ -2,12 +2,13 @@
 
 namespace App\Exports;
 
+use App\Models\Laporan;
 use App\Models\Proposal;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class ProposalExport implements FromQuery, WithHeadings
+class LaporanExport implements FromQuery, WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -19,20 +20,20 @@ class ProposalExport implements FromQuery, WithHeadings
     // }
     public function query()
     {
-        return Proposal::when(request('search'), function($query) {
+        return Laporan::when(request('search'), function($query) {
             $query->where('judul', 'like', '%' . request('search') . '%');
         })->select(
-            "proposals.judul",
-            "proposals.file",
-            "proposals.tanggal",
+            "laporans.judul",
+            "laporans.file",
+            "laporans.tanggal",
             "statuses.status as status",
             "users.name as nama_dinas",
             // "perusahaans.name as nama_perusahaan"
-            // "perusahaans.name as nama_perusahaan",
+            "perusahaans.name as nama_perusahaan",
         )
-        ->join("statuses", "proposals.id_status", "=", "statuses.id")
-        ->join("users", "proposals.id_dinas", "=", "users.id");
-        // ->join("perusahaans", "proposals.id_perusahaan", "=", "perusahaans.id");
+        ->join("statuses", "laporans.id_status", "=", "statuses.id")
+        ->join("users", "laporans.id_dinas", "=", "users.id")
+        ->join("perusahaans", "laporans.id_perusahaan", "=", "perusahaans.id");
     }
 
     public function headings(): array
@@ -43,7 +44,7 @@ class ProposalExport implements FromQuery, WithHeadings
             'tanggal',
             'status',
             'nama_dinas',
-            // 'nama_perusahaan',
+            'nama_perusahaan',
         ];
     }
 }
