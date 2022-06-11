@@ -247,7 +247,7 @@ class ProposalController extends Controller
     public function showProposalRole()
     {
 
-        return Proposal::with('get_status')->with('get_user')->with('get_perusahaan')->where('id_dinas', auth()->guard('user-api')->user()->id)->paginate(2);
+        return Proposal::with('get_status')->with('get_user')->with('get_perusahaan')->where('id_dinas', auth()->guard('user-api')->user()->id)->paginate(5);
         
 
     }
@@ -255,7 +255,7 @@ class ProposalController extends Controller
      public function showProposalRolePerusahaan()
     {
 
-        return Proposal::with('get_status')->with('get_user')->with('get_perusahaan')->where('id_perusahaan', auth()->guard('perusahaan-api')->user()->id)->paginate(2);
+        return Proposal::with('get_status')->with('get_user')->with('get_perusahaan')->where('id_perusahaan', auth()->guard('perusahaan-api')->user()->id)->paginate(5);
         
 
     }
@@ -263,7 +263,7 @@ class ProposalController extends Controller
     public function showProposalDiterimaRolePerusahaan()
     {
 
-        return Proposal::with('get_status')->with('get_user')->with('get_perusahaan')->where('id_status','3')->where('id_perusahaan', auth()->guard('perusahaan-api')->user()->id)->paginate(2);
+        return Proposal::with('get_status')->with('get_user')->with('get_perusahaan')->where('id_status','3')->where('id_perusahaan', auth()->guard('perusahaan-api')->user()->id)->paginate(5);
         
 
     }

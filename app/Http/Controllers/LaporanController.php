@@ -191,7 +191,7 @@ class LaporanController extends Controller
     public function showLaporanRole()
     {
 
-        return Laporan::with('get_status')->with('get_user')->with('get_perusahaan')->where('id_dinas', auth()->guard('user-api')->user()->id)->paginate(2);
+        return Laporan::with('get_status')->with('get_user')->with('get_perusahaan')->where('id_dinas', auth()->guard('user-api')->user()->id)->paginate(5);
         
 
     }
@@ -199,7 +199,7 @@ class LaporanController extends Controller
      public function showLaporanRolePerusahaan()
     {
 
-        return Laporan::with('get_status')->with('get_user')->with('get_perusahaan')->where('id_perusahaan', auth()->guard('perusahaan-api')->user()->id)->paginate(2);
+        return Laporan::with('get_status')->with('get_user')->with('get_perusahaan')->where('id_perusahaan', auth()->guard('perusahaan-api')->user()->id)->paginate(5);
         
 
     }
@@ -207,7 +207,7 @@ class LaporanController extends Controller
     public function showLaporanDiterimaRolePerusahaan()
     {
 
-        return Laporan::with('get_status')->with('get_user')->with('get_perusahaan')->where('id_status','2')->where('id_perusahaan', auth()->guard('perusahaan-api')->user()->id)->paginate(2);
+        return Laporan::with('get_status')->with('get_user')->with('get_perusahaan')->where('id_status','2')->where('id_perusahaan', auth()->guard('perusahaan-api')->user()->id)->paginate(5);
         
 
     }
@@ -215,7 +215,7 @@ class LaporanController extends Controller
       public function showLaporanDitolakRolePerusahaan()
     {
 
-        return Laporan::with('get_status')->with('get_user')->with('get_perusahaan')->where('id_status','3')->where('id_perusahaan', auth()->guard('perusahaan-api')->user()->id)->paginate(2);
+        return Laporan::with('get_status')->with('get_user')->with('get_perusahaan')->where('id_status','3')->where('id_perusahaan', auth()->guard('perusahaan-api')->user()->id)->paginate(5);
         
 
     }
