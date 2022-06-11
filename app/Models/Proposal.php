@@ -10,7 +10,7 @@ class Proposal extends Model
     use HasFactory;
 
        public $table = "proposals";
-        public $timestamps = false;
+        // public $timestamps = false;
         protected $fillable = [
         'judul',
         'id_dinas',
